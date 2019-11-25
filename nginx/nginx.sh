@@ -12,7 +12,7 @@ function _init() {
 }
 
 function _install() {
-	if [ ! -f /opt/install/${downloan_file_name} ]; then
+	if [ ! -f /opt/install/nginx/${downloan_file_name} ]; then
                 echo "nginx rpm not exist !!!"
                 exit -1;
         fi
@@ -25,10 +25,10 @@ function _install() {
 
 	nginx_is_install=`rpm -qa | grep nginx |wc -l`
 	if [ $nginx_is_install == 0 ];then
-		rpm -ivh /opt/install/${downloan_file_name}
+		rpm -ivh /opt/install/nginx/${downloan_file_name}
 	fi
 
-	cp /opt/install/nginx.conf /etc/nginx/nginx.conf
+	cp /opt/install/nginx/nginx.conf /etc/nginx/nginx.conf
 
 #	cp /opt/install/server_admin.souyidai.com.conf /etc/nginx/server.d/
 #	cp /opt/install/upstream_jenkins.conf /etc/nginx/upstream.d/

@@ -11,7 +11,7 @@ function _init() {
 function _install() {
 	jenkins_is_install=`rpm -qa | grep jenkins |wc -l`
 	if [ $jenkins_is_install == 0 ];then
-		rpm -ivh /opt/install/${downloan_file_name}
+		rpm -ivh /opt/install/jenkins/${downloan_file_name}
 	fi
 	chown -R dev:dev /usr/lib/jenkins/
 	echo "jenkins install success !!!"
@@ -36,7 +36,7 @@ function _chkconfig() {
 	echo "chkconfig add jenkins success"
 }
 function _clean() {
-	rm -rf /opt/install/
+	rm -rf /opt/install/jenkins
 }
 
 _init
