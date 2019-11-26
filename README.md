@@ -1,6 +1,5 @@
 第三方服务
-jenkins
-nexus
-nacos
-ginx
-selenium
+1、jenkins
+2、nexus
+3、nacos
+4、nginx

@@ -3,6 +3,7 @@
 downloan_url='http://nginx.org/packages/mainline/centos/7/x86_64/RPMS/nginx-1.13.12-1.el7_4.ngx.x86_64.rpm'
 downloan_file_name='nginx-1.13.12-1.el7_4.ngx.x86_64.rpm'
 nginx_md5='437f9fd29c8965fa0e71f20203ed973d';
+nginx_install_path=/opt/install/nginx
 
 
 function _init() {
@@ -12,12 +13,12 @@ function _init() {
 }
 
 function _install() {
-	if [ ! -f /opt/install/nginx/${downloan_file_name} ]; then
+	if [ ! -f ${nginx_install_path}/${downloan_file_name} ]; then
                 echo "nginx rpm not exist !!!"
                 exit -1;
         fi
 
-	md5=`md5sum /opt/install/${downloan_file_name} | awk -F ' ' '{print $1}'`
+	md5=`md5sum ${nginx_install_path}/${downloan_file_name} | awk -F ' ' '{print $1}'`
         if [ $md5 != $nginx_md5 ]; then
         	echo "nginx rpm md5 incorrect !!!"
                 exit -1
@@ -25,14 +26,13 @@ function _install() {
 
 	nginx_is_install=`rpm -qa | grep nginx |wc -l`
 	if [ $nginx_is_install == 0 ];then
-		rpm -ivh /opt/install/nginx/${downloan_file_name}
+		rpm -ivh ${nginx_install_path}/${downloan_file_name}
 	fi
 
-	cp /opt/install/nginx/nginx.conf /etc/nginx/nginx.conf
-
-#	cp /opt/install/server_admin.souyidai.com.conf /etc/nginx/server.d/
-#	cp /opt/install/upstream_jenkins.conf /etc/nginx/upstream.d/
-#	cp /opt/install/upstream_nexus.conf /etc/nginx/upstream.d/
+	cp ${nginx_install_path}/nginx.conf /etc/nginx/nginx.conf
+	cp ${nginx_install_path}/default.conf /etc/nginx/server.d/
+	cp ${nginx_install_path}/upstream_jenkins.conf /etc/nginx/upstream.d/
+	cp ${nginx_install_path}/upstream_nexus.conf /etc/nginx/upstream.d/
 	echo 'nginx install success !!!'
 }
 

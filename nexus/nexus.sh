@@ -3,6 +3,7 @@
 downloan_url='https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.2.0-01-unix.tar.gz'
 downloan_file_name='nexus-3.2.0-01-unix.tar.gz'
 nexus_home='/usr/local/nexus/nexus-3.2.0-01'
+nexus_install_path=/opt/install/nexus
 
 function _init() {
 	mkdir -p /opt/nexus/
@@ -13,9 +14,9 @@ function _install() {
 	if [ ! -d /usr/local/nexus/nexus-3.2.0-01/ ]; then
 		rm -rf /usr/local/nexus/*
 		mkdir -p /usr/local/nexus
-		tar -zxvf /opt/install/nexus/${downloan_file_name} -C /usr/local/nexus
+		tar -zxvf ${nexus_install_path}/${downloan_file_name} -C /usr/local/nexus
 	fi
-	cp /opt/install/nexus/nexus.properties /usr/local/nexus/nexus-3.2.0-01/etc/nexus-default.properties
+	cp ${nexus_install_path}/nexus.properties /usr/local/nexus/nexus-3.2.0-01/etc/nexus-default.properties
 	chown -R dev:dev /usr/local/nexus
 	su - dev -c "${nexus_home}/bin/nexus start &"
 	echo "nexus install success !!!"
@@ -41,4 +42,4 @@ _init
 _download
 _install
 _chkconfig
-_clean
+#_clean
